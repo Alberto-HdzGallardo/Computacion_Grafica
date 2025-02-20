@@ -222,7 +222,7 @@ int main() {
 		glm::mat4 model=glm::mat4(1);
 		glm::mat4 view=glm::mat4(1);
 	
-	   view = glm::translate(view, glm::vec3(-2.0f,0.0f,-12.0f));
+	   view = glm::translate(view, glm::vec3(-1.0f,-1.0f,-12.0f));
 		model = glm::rotate( model, 0.5f, glm::vec3( 0.0f, -8.0f, 0.0f ) ); // use to compare orthographic and perspective projection
 		model = glm::translate(model, glm::vec3(-5.0f, 0.0f, 0.0f));
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));
@@ -241,8 +241,8 @@ int main() {
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 		//Creación del nuevo modelo 2
 		model = glm::mat4(1);											  //Se crea un nuevo modelo
-		model = glm::translate(model, glm::vec3(5.0f, 0.0f, 0.0f));		  //Se aplica una traslación de X unidades
-		model = glm::rotate(model, 1.5f, glm::vec3(0.0f, -1.0f, 0.0f)); // Rotación
+		model = glm::translate(model, glm::vec3(2.35f, 0.0f, 0.0f));		  //Se aplica una traslación de X unidades
+		model = glm::rotate(model, 1.5f, glm::vec3(-4.0f, -0.0f, 0.0f)); // Rotación
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));			//Escala
 
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model)); //Se manda la información al shader
@@ -250,8 +250,8 @@ int main() {
 
 		//Creación del nuevo modelo 3
 		model = glm::mat4(1);											  //Se crea un nuevo modelo
-		model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));		  //Se aplica una traslación de X unidades
-		model = glm::rotate(model, 1.5f, glm::vec3(6.0f, -1.0f, 0.0f)); // Rotación
+		model = glm::translate(model, glm::vec3(-2.0f, 0.0f, 0.0f));		  //Se aplica una traslación de X unidades
+		model = glm::rotate(model, 1.5f, glm::vec3(6.0f, 0.0f, 0.0f)); // Rotación
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));			//Escala
 
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model)); //Se manda la información al shader
@@ -259,17 +259,17 @@ int main() {
 
 		//Creación del nuevo modelo 4
 		model = glm::mat4(1);											  //Se crea un nuevo modelo
-		model = glm::translate(model, glm::vec3(3.0f, 0.0f, 0.0f));		  //Se aplica una traslación de X unidades
-		model = glm::rotate(model, 1.5f, glm::vec3(8.0f, -1.0f, 0.0f)); // Rotación
+		model = glm::translate(model, glm::vec3(0.3f, 0.0f, 0.75f));		  //Se aplica una traslación de X unidades
+		model = glm::rotate(model, 1.5f, glm::vec3(5.0f, 220.0f, 0.0f)); // Rotación
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));			//Escala
 
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model)); //Se manda la información al shader
 		glDrawArrays(GL_TRIANGLES, 0, 36);								  //Se dibuja la figura
 
-		//Creación del nuevo modelo 5
+		//Creación del nuevo modelo 5 (2do nivel)
 		model = glm::mat4(1);											  //Se crea un nuevo modelo
-		model = glm::translate(model, glm::vec3(3.0f, 1.5f, 0.0f));		  //Se aplica una traslación de X unidades
-		model = glm::rotate(model, 1.5f, glm::vec3(8.0f, -5.0f, 0.0f)); // Rotación
+		model = glm::translate(model, glm::vec3(-2.85f, 2.0f, -1.0f));		  //Se aplica una traslación de X unidades
+		model = glm::rotate(model, 1.5f, glm::vec3(-5.0f, -160.0f, 10.0f)); // Rotación
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));			//Escala
 
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model)); //Se manda la información al shader
@@ -277,8 +277,8 @@ int main() {
 
 		//Creación del nuevo modelo 6
 		model = glm::mat4(1);											  //Se crea un nuevo modelo
-		model = glm::translate(model, glm::vec3(3.0f, 1.5f, 0.0f));		  //Se aplica una traslación de X unidades
-		model = glm::rotate(model, 1.5f, glm::vec3(8.0f, -2.0f, 0.0f)); // Rotación
+		model = glm::translate(model, glm::vec3(0.5f, 2.0f, 1.0f));		  //Se aplica una traslación de X unidades
+		model = glm::rotate(model, 45.0f, glm::vec3(180.0f, -180.0f,-360.0f)); // Rotación
 		model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));			//Escala
 
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model)); //Se manda la información al shader
