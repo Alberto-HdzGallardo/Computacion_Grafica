@@ -1,5 +1,5 @@
 /*Práctica 3												Hernandez Gallardo Alberto Javier
-  Fecha de entrega:	21 de febrero de 2025					313113439
+  Fecha de entrega:	23 de febrero de 2025					313113439
 */
 #include<iostream>
 
