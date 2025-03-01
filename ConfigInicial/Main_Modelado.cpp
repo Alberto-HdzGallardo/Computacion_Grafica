@@ -384,6 +384,32 @@ int main() {
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
+		//Modelado de la pierna izquierda
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.07f, 0.2f, 0.06f));		 //Tamaño de la pierna
+		model = glm::translate(model, glm::vec3(-1.6f, -0.5f, 0.0f)); //Posición de la pierna
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 36, 73);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.08f, 0.05f, 0.1f));		 //Tamaño pie izquierdo
+		model = glm::translate(model, glm::vec3(-1.4f, -3.5f, 0.0f)); //Posición pie izquierdo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
+		//Modelado de la pierna derecha
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.07f, 0.2f, 0.06f));		 //Tamaño de la pierna
+		model = glm::translate(model, glm::vec3(1.6f, -0.5f, 0.0f)); //Posición de la pierna
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 36, 73);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.08f, 0.05f, 0.1f));		 //Tamaño pie derecho
+		model = glm::translate(model, glm::vec3(1.4f, -3.5f, 0.0f)); //Posición pie derecho
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		//Modelado de la pata 3
 		model = glm::mat4(1.0f);
@@ -395,9 +421,12 @@ int main() {
 		//Modelado de la pata 4
 		model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(0.07f, 0.2f, 0.1f));		 //Tamaño de la pata
-		model = glm::translate(model, glm::vec3(8.9f, -0.45f, -6.0f)); //Posición de la pata
+		model = glm::translate(model, glm::vec3(8.9f, -0.1f, -6.0f)); //Posición de la pata
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+
+
 
 
 		glBindVertexArray(0);
