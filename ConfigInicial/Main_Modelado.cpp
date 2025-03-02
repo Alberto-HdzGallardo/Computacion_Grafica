@@ -469,6 +469,12 @@ int main() {
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.125f, 0.045f, 0.1f)); //Ancho,grosor y profundidad
+		model = glm::translate(model, glm::vec3(0.0f, 17.8f, 0.0f)); //Posición de parte superior cabeza 2
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(0.25f, 0.045f, 0.1f)); //Ancho,grosor y profundidad
 		model = glm::translate(model, glm::vec3(0.0f, 11.0f, 0.0f)); //Posición de parte inferior cabeza
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -476,13 +482,25 @@ int main() {
 
 		model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(0.03f, 0.25f, 0.1f)); //Ancho,grosor y profundidad
-		model = glm::translate(model, glm::vec3(4.7f, 2.5f, 0.0f)); //Posición de detalle lateral izquierdo
+		model = glm::translate(model, glm::vec3(4.68f, 2.5f, 0.0f)); //Posición de detalle lateral izquierdo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.03f, 0.17f, 0.1f)); //Ancho,grosor y profundidad
+		model = glm::translate(model, glm::vec3(5.7f, 3.7f, 0.0f)); //Posición de detalle lateral izquierdo 2
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(0.03f, 0.25f, 0.1f)); //Ancho,grosor y profundidad
-		model = glm::translate(model, glm::vec3(-4.7f, 2.5f, 0.0f)); //Posición de detalle lateral izquierdo
+		model = glm::translate(model, glm::vec3(-4.68f, 2.5f, 0.0f)); //Posición de detalle lateral derecho
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.03f, 0.17f, 0.1f)); //Ancho,grosor y profundidad
+		model = glm::translate(model, glm::vec3(-5.7f, 3.7f, 0.0f)); //Posición de detalle lateral derecho 2
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
