@@ -24,7 +24,7 @@
 void Inputs(GLFWwindow *window);
 
 
-const GLint WIDTH = 1000, HEIGHT = 800;
+const GLint WIDTH = 900, HEIGHT = 700;
 float movX=0.0f;
 float movY=0.0f;
 float movZ=-5.0f;
@@ -213,6 +213,48 @@ int main() {
 		0.5f,  0.5f,  0.5f, 0.0f, 0.0f, 0.0f,
 		-0.5f,  0.5f,  0.5f, 0.0f, 0.0f, 0.0f,
 		-0.5f,  0.5f, -0.5f, 0.0f, 0.0f, 0.0f,
+
+		-0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f,//Color blanco (108-145)
+		0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f,
+		0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f,
+		0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f,
+		-0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f,
+		-0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f,
+
+		-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,//Back
+		0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+		0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+		0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+		-0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+
+		0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f,
+		0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+		0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+		0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+		0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f,
+		0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f,
+
+		-0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f,
+		-0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+		-0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f,
+		-0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f,
+
+		-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+		0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+		0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f,
+		0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f,
+		-0.5f, -0.5f, 0.5f, 1.0f, 1.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+
+		-0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+		0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
+		0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f,
+		0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f,
+		-0.5f, 0.5f, 0.5f, 1.0f, 1.0f, 1.0f,
+		-0.5f, 0.5f, -0.5f, 1.0f, 1.0f, 1.0f,
 	};
 
 
@@ -294,7 +336,7 @@ int main() {
 		model = glm::translate(model, glm::vec3(0.0f, 0.5f, 0.0f)); //Se sube un poco el torso principal
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 36, 73);
-
+		
 		//Detallado torso
 		model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(0.5f, 0.1f, 0.1f)); //Ancho,grosor y profundidad
@@ -332,7 +374,7 @@ int main() {
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-
+		
 		//Modelado del brazo derecho
 		model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(0.07f, 0.04f, 0.1f));		 //Tamaño
@@ -370,20 +412,20 @@ int main() {
 		model = glm::translate(model, glm::vec3(-3.5f, 1.5f, 0.0f)); //Posición mano izquierda
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
-
+		
 		//Modelado del cuello
 		model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.08f)); //Ancho,grosor y profundidad
-		model = glm::translate(model, glm::vec3(0.0f, 9.0f, 0.0f)); //Posición de detalle pecho central
+		model = glm::translate(model, glm::vec3(0.0f, 9.0f, 0.0f)); //Posición de detalle cuello
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
 		model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(0.1f, 0.05f, 0.06f)); //Ancho,grosor y profundidad
-		model = glm::translate(model, glm::vec3(0.0f, 9.0f, 0.0f)); //Posición de detalle pecho central
+		model = glm::translate(model, glm::vec3(0.0f, 9.0f, 0.0f)); //Posición de detalle cuello
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
-
+		
 		//Modelado de la pierna izquierda
 		model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(0.07f, 0.2f, 0.06f));		 //Tamaño de la pierna
@@ -397,7 +439,7 @@ int main() {
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-
+		
 		//Modelado de la pierna derecha
 		model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(0.07f, 0.2f, 0.06f));		 //Tamaño de la pierna
@@ -411,21 +453,112 @@ int main() {
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		//Modelado de la pata 3
+		
+		//Modelado de cabeza
 		model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(0.07f, 0.2f, 0.1f));		 //Tamaño de la pata
-		model = glm::translate(model, glm::vec3(-8.9f, -0.45f, -6.0f)); //Posición de la pata
+		model = glm::scale(model, glm::vec3(0.25f, 0.25f, 0.1f)); //Ancho,grosor y profundidad
+		model = glm::translate(model, glm::vec3(0.0f, 2.5f, 0.0f)); //Posición de cabeza
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glDrawArrays(GL_TRIANGLES, 0, 36);
 
-		//Modelado de la pata 4
+		//Detallado de la cabeza
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.25f, 0.045f, 0.1f)); //Ancho,grosor y profundidad
+		model = glm::translate(model, glm::vec3(0.0f, 17.0f, 0.0f)); //Posición de parte superior cabeza
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.25f, 0.045f, 0.1f)); //Ancho,grosor y profundidad
+		model = glm::translate(model, glm::vec3(0.0f, 11.0f, 0.0f)); //Posición de parte inferior cabeza
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.03f, 0.25f, 0.1f)); //Ancho,grosor y profundidad
+		model = glm::translate(model, glm::vec3(4.7f, 2.5f, 0.0f)); //Posición de detalle lateral izquierdo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.03f, 0.25f, 0.1f)); //Ancho,grosor y profundidad
+		model = glm::translate(model, glm::vec3(-4.7f, 2.5f, 0.0f)); //Posición de detalle lateral izquierdo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		//Modelado de ojos
+		//Ojo izquierdo
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.07f, 0.07f, 0.07f)); //Ancho,grosor y profundidad
+		model = glm::translate(model, glm::vec3(0.9f, 9.0f, 0.3f)); //Posición de ojo izquierdo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 108, 145);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.07f, 0.03f, 0.07f)); //Ancho,grosor y profundidad
+		model = glm::translate(model, glm::vec3(0.9f, 19.5f, 0.3f)); //Posición de detalle inferior ojo izquierdo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 72, 109);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.07f, 0.03f, 0.07f)); //Ancho,grosor y profundidad
+		model = glm::translate(model, glm::vec3(0.9f, 22.5f, 0.3f)); //Posición de detalle superior ojo izquierdo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 72, 109);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.03f, 0.07f, 0.07f)); //Ancho,grosor y profundidad
+		model = glm::translate(model, glm::vec3(0.9f, 9.0f, 0.29f)); //Posición de detalle lateral 1 ojo izquierdo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 72, 109);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.03f, 0.14f, 0.07f)); //Ancho,grosor y profundidad
+		model = glm::translate(model, glm::vec3(3.7f, 4.57f, 0.3f)); //Posición de detalle lateral 2 ojo izquierdo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 72, 109);
+
+
+		//Ojo derecho
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.07f, 0.07f, 0.07f)); //Ancho,grosor y profundidad
+		model = glm::translate(model, glm::vec3(-0.9f, 9.0f, 0.3f)); //Posición de ojo izquierdo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 108, 145);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.07f, 0.03f, 0.07f)); //Ancho,grosor y profundidad
+		model = glm::translate(model, glm::vec3(-0.9f, 19.5f, 0.3f)); //Posición de detalle inferior ojo derecho
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 72, 109);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.07f, 0.03f, 0.07f)); //Ancho,grosor y profundidad
+		model = glm::translate(model, glm::vec3(-0.9f, 22.5f, 0.3f)); //Posición de detalle superior ojo derecho
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 72, 109);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.03f, 0.07f, 0.07f)); //Ancho,grosor y profundidad
+		model = glm::translate(model, glm::vec3(-0.9f, 9.0f, 0.29f)); //Posición de detalle lateral 1 ojo derecho
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 72, 109);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(0.03f, 0.14f, 0.07f)); //Ancho,grosor y profundidad
+		model = glm::translate(model, glm::vec3(-3.7f, 4.57f, 0.3f)); //Posición de detalle lateral 2 ojo izquierdo
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glDrawArrays(GL_TRIANGLES, 72, 109);
+
+		/*
+		//
 		model = glm::mat4(1.0f);
 		model = glm::scale(model, glm::vec3(0.07f, 0.2f, 0.1f));		 //Tamaño de la pata
 		model = glm::translate(model, glm::vec3(8.9f, -0.1f, -6.0f)); //Posición de la pata
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glDrawArrays(GL_TRIANGLES, 108, 145);
 
-
+		*/
 
 
 
