@@ -1,6 +1,6 @@
 /*
 * Práctica 5
-* Fecha de entrega: 4 de marzo del 2025
+* Fecha de entrega: 9 de marzo del 2025
 * Hernandez Gallardo Alberto Javier
 * No. cuenta: 313113439
 */
@@ -474,7 +474,7 @@ int main() {
 			 palma = -90.0f;
 		 }
 	 }
-		 
+	 //Restricción falanges 1	 
 	 if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS) {
 		 if (dedo1 < 10.0f) {
 			 dedo1 += 0.09f;
@@ -492,7 +492,7 @@ int main() {
 			 dedo1 = -15.0f;
 		 }
 	 }
-		 
+	 //Restricción falanges 2	 
 	 if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS) {
 		 if (dedo1B < 0.0f) {
 			 dedo1B += 0.09f;
@@ -510,7 +510,7 @@ int main() {
 			 dedo1B = -100.0f;
 		 }
 	 }
-		 
+	 //Restricción falanges 3	 
 	 if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS) {
 		 if (dedo1C < 0.0f) {
 			 dedo1C += 0.09f;
