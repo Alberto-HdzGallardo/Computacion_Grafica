@@ -33,9 +33,8 @@ codo = 0.0f,
 palma = 0.0f,
 dedo1 = 0.0f,
 dedo1B = 0.0f,
-dedo1C = 0.0f,
-pulgar1 = 0.0f,
-pulgar2 = 0.0f;
+dedo1C = 0.0f;
+
 
 
 
@@ -194,7 +193,7 @@ int main() {
 		glm::mat4 view=glm::mat4(1);
 		glm::mat4 modelTemp = glm::mat4(1.0f); //Temp
 		glm::mat4 modelTemp2 = glm::mat4(1.0f); //Temp
-		glm::mat4 modelTemp3 = glm::mat4(1.0f); //Temp
+		
 
 
 
@@ -421,6 +420,7 @@ int main() {
 		 rot += 0.018f;
 	 if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
 		 rot -= 0.018f;
+	 //Restricción hombro
 	 if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS){
 		 if (hombro < 90.0f) {
 			 hombro += 0.18f;
@@ -438,38 +438,97 @@ int main() {
 			 hombro = -90.0f;
 		 }
 	 }
+		 		
+	 //Restricción codo
+	 if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS) {
+		 if (codo < 0.0f) {
+			 codo += 0.18f;
+		 }
+		 else if (codo > 0.0f) {
+			 codo = 0.0f;
+		 }
+	 }
+	 if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS) {
+		 if (codo > -120.0f) {
+			 codo -= 0.18f;
+		 }
+		 else if (codo < -120.0f) {
+			 codo = -120.0f;
+		 }
+	 }
+	 //Restricción palma
+	 if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS) {
+		 if (palma < 10.0f) {
+			 palma += 0.09f;
+		 }
+		 else if (palma > 10.0f) {
+			 palma = 10.0f;
+		 }
+	 }
 		 
-		
-
-	 if (glfwGetKey(window, GLFW_KEY_T) == GLFW_PRESS)
-		 codo += 0.09f;
-	 if (glfwGetKey(window, GLFW_KEY_G) == GLFW_PRESS)
-		 codo -= 0.09f;
-	 if (glfwGetKey(window, GLFW_KEY_Y) == GLFW_PRESS)
-		 palma += 0.09f;
-	 if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS)
-		 palma -= 0.09f;
-	 if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS)
-		 dedo1 += 0.09f;
-	 if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS)
-		 dedo1 -= 0.09f;
-	 if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS)
-		 dedo1B += 0.09f;
-	 if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS)
-		 dedo1B -= 0.09f;
-	 if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS)
-		 dedo1C += 0.09f;
-	 if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS)
-		 dedo1C -= 0.09f;
-	 if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
-		 pulgar1 += 0.09f;
-	 if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
-		 pulgar1 -= 0.09f;
-	 if (glfwGetKey(window, GLFW_KEY_O) == GLFW_PRESS)
-		 pulgar2 += 0.09f;
-	 if (glfwGetKey(window, GLFW_KEY_L) == GLFW_PRESS)
-		 pulgar2 -= 0.09f;
-
+	 if (glfwGetKey(window, GLFW_KEY_H) == GLFW_PRESS) {
+		 if (palma > -90.0f) {
+			 palma -= 0.09f;
+		 }
+		 else if (palma < -90.0f) {
+			 palma = -90.0f;
+		 }
+	 }
+		 
+	 if (glfwGetKey(window, GLFW_KEY_U) == GLFW_PRESS) {
+		 if (dedo1 < 10.0f) {
+			 dedo1 += 0.09f;
+		 }
+		 else if (dedo1 > 10.0f) {
+			 dedo1 = 10.0f;
+		 }
+	 }
+		 
+	 if (glfwGetKey(window, GLFW_KEY_J) == GLFW_PRESS) {
+		 if (dedo1 > -15.0f) {
+			 dedo1 -= 0.09f;
+		 }
+		 else if (dedo1 < -15.0f) {
+			 dedo1 = -15.0f;
+		 }
+	 }
+		 
+	 if (glfwGetKey(window, GLFW_KEY_I) == GLFW_PRESS) {
+		 if (dedo1B < 0.0f) {
+			 dedo1B += 0.09f;
+		 }
+		 else if (dedo1B > 0.0f) {
+			 dedo1B = 0.0f;
+		 }
+	 }
+		 
+	 if (glfwGetKey(window, GLFW_KEY_K) == GLFW_PRESS) {
+		 if (dedo1B > -100.0f) {
+			 dedo1B -= 0.09f;
+		 }
+		 else if (dedo1B < -100.0f) {
+			 dedo1B = -100.0f;
+		 }
+	 }
+		 
+	 if (glfwGetKey(window, GLFW_KEY_N) == GLFW_PRESS) {
+		 if (dedo1C < 0.0f) {
+			 dedo1C += 0.09f;
+		 }
+		 else if (dedo1C > 0.0f) {
+			 dedo1C = 0.0f;
+		 }
+	 }
+		 
+	 if (glfwGetKey(window, GLFW_KEY_M) == GLFW_PRESS) {
+		 if (dedo1C > -125.0f) {
+			 dedo1C -= 0.09f;
+		 }
+		 else if (dedo1C < -125.0f) {
+			 dedo1C = -125.0f;
+		 }
+	 }
+		 
  }
 
 
