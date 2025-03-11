@@ -1,0 +1,36 @@
+# 
+# Wavefront material file
+# Converted by the ODShelfTools
+# Oliver Hotz
+# https://origamidigital.com/cart/index.php?route=product/product&path=59_63&product_id=64
+# 
+
+newmtl Paint
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.3 0.3 0.3
+illum 2
+Ns 8
+map_Kd \Export_Textures\2K\Paint_Base_Color.png
+map_Ke \Export_Textures\2K\Paint_Emissive.png
+map_d \Export_Textures\2K\Paint_Height.png
+map_Pm \Export_Textures\2K\Paint_Metallic.png
+map_ao \Export_Textures\2K\Paint_Mixed_AO.png
+map_bump \Export_Textures\2K\Paint_Normal.png
+norm \Export_Textures\2K\Paint_Normal_DirectX.png
+map_Ns \Export_Textures\2K\Paint_Roughness.png
+
+newmtl Metal
+Ka 0 0 0
+Kd 1 1 1
+Ks 0.3 0.3 0.3
+illum 2
+Ns 8
+map_Kd \Export_Textures\2K\Metal_Base_Color.png
+map_Ke \Export_Textures\2K\Metal_Emissive.png
+map_d \Export_Textures\2K\Metal_Height.png
+map_Pm \Export_Textures\2K\Metal_Metallic.png
+map_ao \Export_Textures\2K\Metal_Mixed_AO.png
+map_bump \Export_Textures\2K\Metal_Normal.png
+norm \Export_Textures\2K\Metal_Normal_DirectX.png
+map_Ns \Export_Textures\2K\Metal_Roughness.png
