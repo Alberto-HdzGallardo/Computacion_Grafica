@@ -1,3 +1,13 @@
+/*
+Previo 6: Carga de modelos y cámara sintética
+Fecha de entrega: 11 de marzo del 2025
+Hernandez Gallardo Alberto Javier
+No. cuenta: 313113439
+*/
+
+
+
+
 // Std. Includes
 #include <string>
 
