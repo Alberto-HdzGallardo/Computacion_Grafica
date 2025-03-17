@@ -110,6 +110,9 @@ int main( )
 	Model corns_sm((char*)"Models/Low Poly Farm Asset/corns_sm.obj");
 	Model hay((char*)"Models/Low Poly Farm Asset/hay.obj");
 	Model tree((char*)"Models/Low Poly Farm Asset/tree.obj");
+	Model stone_path_lowpoly((char*)"Models/Low Poly Farm Asset/stone_path_lowpoly.obj");
+	Model barrel((char*)"Models/Low Poly Farm Asset/barrel.obj");
+	Model barn((char*)"Models/Low Poly Farm Asset/barn.obj");
     glm::mat4 projection = glm::perspective( camera.GetZoom( ), ( float )SCREEN_WIDTH/( float )SCREEN_HEIGHT, 0.1f, 100.0f );
     
   
@@ -138,9 +141,14 @@ int main( )
 
         // Draw the loaded model Dog
         glm::mat4 model(1);
-        model = glm::translate(model, glm::vec3(0.0f, 2.0f, 0.0f));
-        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        glm::mat4 doggy(1);
+        doggy = glm::translate(doggy, glm::vec3(0.0f, 2.0f, 0.0f));
+        model = doggy;
+        doggy = glm::rotate(model, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        doggy = glm::translate(doggy, glm::vec3(5.0f, 0.0f, 5.0f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(doggy));
         dog.Draw(shader);
+        
 
         //Terreno base
         model = glm::translate(model, glm::vec3(-8.0f, -0.4f, 0.0f));
@@ -225,8 +233,53 @@ int main( )
         model2 = glm::rotate(model2, glm::radians(135.0f), glm::vec3(0.0f, 1.0f, 0.0f));
         glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model2));
         tree.Draw(shader);
-        /**/
         
+        //Camino 1
+		//Se crea otra matriz para el camino para que sea mas sencillo de manipular
+        glm::mat4 camino(1);
+        camino = glm::translate(camino, glm::vec3(-16.7f, 1.6f, -5.7f));
+        glm::mat4 barril(1);
+        barril = camino;
+        camino = glm::rotate(camino, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(camino));
+        stone_path_lowpoly.Draw(shader);
+
+		//Camino 2
+        camino = glm::translate(camino, glm::vec3(0.0f, 0.0f, 4.2f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(camino));
+        stone_path_lowpoly.Draw(shader);
+
+		//Camino 3
+        camino = glm::translate(camino, glm::vec3(0.0f, 0.0f, 4.2f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(camino));
+        stone_path_lowpoly.Draw(shader);
+
+        //Barril 1
+        barril = glm::translate(barril, glm::vec3(1.5f, 0.05f, 1.0f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(barril));
+        barrel.Draw(shader);
+
+        //Barn
+		barril = glm::translate(barril, glm::vec3(18.0f, 0.0f, 18.0f));
+		model2 = barril;
+        barril = glm::rotate(barril, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		barril = glm::scale(barril, glm::vec3(0.5f, 0.5f, 0.5f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(barril));
+		barn.Draw(shader);
+
+		//Arbol 5
+		model2 = glm::translate(model2, glm::vec3(9.0f, 0.0f, -2.0f));
+        model = model2;
+        model2 = glm::rotate(model2, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model2));
+		tree.Draw(shader);
+
+        //Arbol 6
+        model = glm::translate(model, glm::vec3(-33.0f, 0.0f, 8.0f));
+		model = glm::rotate(model, glm::radians(-45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+        glUniformMatrix4fv(glGetUniformLocation(shader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        tree.Draw(shader);
+
         // Swap the buffers
         glfwSwapBuffers( window );
     }
