@@ -148,7 +148,7 @@ int main()
 	};
 
 	GLuint indices[] =
-	{  // Note that we start from 0!
+	{  // Para dibujar correctamente la cara se asignan los UVs de la imagen para cada vertice
 		0,1,3,
 		1,2,3,
 		4,5,7,
