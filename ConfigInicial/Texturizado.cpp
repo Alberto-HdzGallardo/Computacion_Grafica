@@ -1,6 +1,6 @@
 /*
-Previo 7: Texturizado
-Fecha de entrega: 17 de marzo del 2025
+Practica 7: Texturizado
+Fecha de entrega: 23 de marzo del 2025
 Hernandez Gallardo Alberto Javier
 No. cuenta: 313113439
 */
@@ -107,10 +107,41 @@ int main()
 	GLfloat vertices[] =
 	{
 		// Positions            // Colors              // Texture Coords
-		-0.5f, -0.5f, 0.0f,    1.0f, 1.0f,1.0f,		0.0f,0.0f,
-		0.5f, -0.5f, 0.0f,	   1.0f, 1.0f,1.0f,		1.0f,0.0f,
-		0.5f,  0.5f, 0.0f,     1.0f, 1.0f,1.0f,	    1.0f,1.0f,
-		-0.5f,  0.5f, 0.0f,    1.0f, 1.0f,1.0f,		0.0f,1.0f,
+		-0.5f, -0.5f, 0.0f,    1.0f, 1.0f,1.0f,		0.0f,0.25f,
+		0.5f, -0.5f, 0.0f,	   1.0f, 1.0f,1.0f,		0.25f,0.25f,
+		0.5f,  0.5f, 0.0f,     1.0f, 1.0f,1.0f,	    0.25f,0.5f,
+		-0.5f,  0.5f, 0.0f,    1.0f, 1.0f,1.0f,		0.0f,0.5f,
+
+		//Back
+		-0.5f, -0.5f,-1.0f,	   1.0f, 1.0f,1.0f,		0.5f,0.25f,
+		 0.5f, -0.5f,-1.0f,    1.0f, 1.0f,1.0f,		0.75f,0.25f,
+		 0.5f,  0.5f,-1.0f,    1.0f, 1.0f,1.0f,		0.75f,0.5f,
+		-0.5f,  0.5f,-1.0f,    1.0f, 1.0f,1.0f,		0.5f,0.5f,
+		
+
+		// Right
+		0.5f, -0.5f, 0.0f,     1.0f, 1.0f,1.0f,    0.0f, 0.0f,
+		0.5f, -0.5f, -1.0f,    1.0f, 1.0f,1.0f,    1.0f, 0.0f,
+		0.5f,  0.5f, -1.0f,    1.0f, 1.0f,1.0f,    1.0f, 1.0f,
+		0.5f,  0.5f, 0.0f,     1.0f, 1.0f,1.0f,    0.0f, 1.0f,
+
+		// Left
+		-0.5f, -0.5f, 0.0f,    1.0f, 1.0f,1.0f,    1.0f, 0.0f,
+		-0.5f, -0.5f, -1.0f,   1.0f, 1.0f,1.0f,    0.0f, 0.0f,
+		-0.5f,  0.5f, -1.0f,   1.0f, 1.0f,1.0f,    0.0f, 1.0f,
+		-0.5f,  0.5f, 0.0f,    1.0f, 1.0f,1.0f,    1.0f, 1.0f,
+
+		// Top
+		-0.5f, 0.5f, 0.0f,     1.0f, 1.0f,1.0f,    0.0f, 0.0f,
+		 0.5f, 0.5f, 0.0f,     1.0f, 1.0f,1.0f,    1.0f, 0.0f,
+		 0.5f, 0.5f, -1.0f,    1.0f, 1.0f,1.0f,    1.0f, 1.0f,
+		-0.5f, 0.5f, -1.0f,    1.0f, 1.0f,1.0f,    0.0f, 1.0f,
+
+		// Bottom
+		-0.5f, -0.5f, 0.0f,    1.0f, 1.0f,1.0f,    0.0f, 1.0f,
+		 0.5f, -0.5f, 0.0f,    1.0f, 1.0f,1.0f,    1.0f, 1.0f,
+		 0.5f, -0.5f, -1.0f,   1.0f, 1.0f,1.0f,    1.0f, 0.0f,
+		-0.5f, -0.5f, -1.0f,   1.0f, 1.0f,1.0f,    0.0f, 0.0f,
 
 		
 	};
@@ -118,7 +149,17 @@ int main()
 	GLuint indices[] =
 	{  // Note that we start from 0!
 		0,1,3,
-		1,2,3
+		1,2,3,
+		4,5,7,
+		5,6,7,
+		8,9,11,
+		9,10,11,
+		12,13,15,
+		13,14,15,
+		16,17,19,
+		17,18,19,
+		20,21,23,
+		21,22,23
 	
 	};
 
@@ -159,15 +200,15 @@ int main()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST_MIPMAP_NEAREST);
 	// Diffuse map
-	image = stbi_load("images/window.png", &textureWidth, &textureHeight, &nrChannels,0);
+	image = stbi_load("images/dado.jpg", &textureWidth, &textureHeight, &nrChannels,0);
 	glBindTexture(GL_TEXTURE_2D, texture1);
 	//Se convierte la imagen a textura en 2D
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth, textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	//Se generan los mipmaps para optimizar recursos
 	glGenerateMipmap(GL_TEXTURE_2D);
 	if (image)
 	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, textureWidth, textureHeight, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, textureWidth, textureHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 	else
@@ -217,7 +258,7 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		// Draw the light object (using light's vertex attributes)
 		glBindVertexArray(VAO);
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 
 		// Swap the screen buffers
