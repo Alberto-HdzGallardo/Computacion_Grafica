@@ -1,6 +1,6 @@
 /*
 Practica 7: Texturizado
-Fecha de entrega: 23 de marzo del 2025
+Fecha de entrega: 22 de marzo del 2025
 Hernandez Gallardo Alberto Javier
 No. cuenta: 313113439
 */
