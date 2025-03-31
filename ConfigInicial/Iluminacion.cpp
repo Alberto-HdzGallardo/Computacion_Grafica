@@ -52,8 +52,6 @@ float rot = 0.0f;
 bool activanim = false;
 float rot2 = 0.0f;
 
-glm::vec3 lightPos2(-15.0f, 1.5f, 0.0f);
-
 //Variable para mostrar sol o luna
 bool sol_luna = true;
 
@@ -234,6 +232,7 @@ int main()
         // Update light position in the shader
         lightingShader.Use();
         GLint lightPosLoc = glGetUniformLocation(lightingShader.Program, "light.position");
+        GLint viewPosLoc = glGetUniformLocation(lightingShader.Program, "viewPos");
         glUniform3f(lightPosLoc, lightPos.x, lightPos.y, lightPos.z);
 
         // Update view and projection matrices in the shader
@@ -242,25 +241,15 @@ int main()
         glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
 
         if (sol_luna) {
-            lightingShader.Use();
-            GLint lightPosLoc = glGetUniformLocation(lightingShader.Program, "light.position");
-            GLint viewPosLoc = glGetUniformLocation(lightingShader.Program, "viewPos");
-            glUniform3f(lightPosLoc, lightPos.x , lightPos.y , lightPos.z );
-            glUniform3f(viewPosLoc, camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
-
+           
             // Set lights properties (naranja)
             glUniform3f(glGetUniformLocation(lightingShader.Program, "light.ambient"), 1.0f, 0.45f, 0.1f);
             glUniform3f(glGetUniformLocation(lightingShader.Program, "light.diffuse"), 1.0f, 0.55f, 0.2f);
             glUniform3f(glGetUniformLocation(lightingShader.Program, "light.specular"), 1.0f, 0.6f, 0.3f);
         }
         else {
-            lightingShader.Use();
-            lightPos2 = glm::vec3(-15.0f, 1.5f, 0.0f);
-			GLint lightPosLoc = glGetUniformLocation(lightingShader.Program, "light.position");
-			GLint viewPosLoc = glGetUniformLocation(lightingShader.Program, "viewPos");
-			glUniform3f(lightPosLoc, lightPos2.x + movelightPos, lightPos2.y + movelightPos, lightPos2.z + movelightPos);
-			glUniform3f(viewPosLoc, camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);
-			
+           
+            	
             // Set lights properties (blanco)
 			glUniform3f(glGetUniformLocation(lightingShader.Program, "light.ambient"), 0.5f, 0.5f, 0.5f);
 			glUniform3f(glGetUniformLocation(lightingShader.Program, "light.diffuse"), 0.8f, 0.8f, 0.8f);
@@ -432,8 +421,7 @@ int main()
         lampshader.Use();
 
         if (sol_luna) {
-            lampshader.Use();
-
+            
             glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
             glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
             model = glm::mat4(1.0f);
@@ -441,26 +429,18 @@ int main()
             model = glm::translate(model, lightPos + movelightPos);
             model = glm::scale(model, glm::vec3(0.1f));
             glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-            glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-            glBindVertexArray(VAO);
-            //sol.Draw(lightingShader);
             sol.Draw(lampshader);
         
         }
         else {
-            lampshader.Use();
             
-
             glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
             glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "view"), 1, GL_FALSE, glm::value_ptr(view));
             model = glm::mat4(1.0f);
-            model = glm::translate(model, glm::vec3(-15.0f, 1.5f, 0.0f));
-            model = glm::translate(model, lightPos2 + movelightPos);
+            model = glm::translate(model, glm::vec3(-10.0f, 1.5f, 0.0f));
+            model = glm::translate(model, lightPos + movelightPos);
             model = glm::scale(model, glm::vec3(0.3f));
             glUniformMatrix4fv(glGetUniformLocation(lampshader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-            glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
-            glBindVertexArray(VAO);
-            //luna.Draw(lightingShader);
             luna.Draw(lampshader);
         }
         
@@ -511,49 +491,27 @@ void DoMovement()
             rot -= 0.1f;
     }
     
-
-    if (sol_luna == false) {
-    
-        if (keys[GLFW_KEY_L]) // Mover la luna en su órbita
-        {
+    if (keys[GLFW_KEY_O]) // Mover el sol en su órbita
+    {
+        sol_luna = true;
             rot += 0.002f; // Incrementa el ángulo (ajustable para velocidad)
             if (rot > glm::pi<float>()) // Limita a media circunferencia
                 rot = glm::pi<float>();
-        }
-        if (keys[GLFW_KEY_O]) // Retroceder la luna
-        {
+    }
+    if (keys[GLFW_KEY_L]) // Mover la luna en la misma órbita
+    {   
+			sol_luna = false;
             rot -= 0.002f;
             if (rot < 0.0f)
                 rot = 0.0f;
-        }
-        float radius = 20.0f;
-        lightPos2.x = radius * cos(rot);
-        lightPos2.y = radius * sin(rot) + 1.5f; // Elevación inicial en y
-
-        std::cout << "Moon Position: (" << lightPos2.x << ", " << lightPos2.y << ", " << lightPos2.z << ")" << std::endl;
-
-        }
-    else {
-        if (keys[GLFW_KEY_O]) // Mover el sol en su órbita
-        {
-            rot += 0.002f; // Incrementa el ángulo (ajustable para velocidad)
-            if (rot > glm::pi<float>()) // Limita a media circunferencia
-                rot = glm::pi<float>();
-        }
-        if (keys[GLFW_KEY_L]) // Retroceder el sol
-        {
-            rot -= 0.002f;
-            if (rot < 0.0f)
-                rot = 0.0f;
-        }
+    }
 
         // Movimiento semicircular con radio 20.0f
         float radius = 20.0f;
         lightPos.x = radius * cos(rot);
         lightPos.y = radius * sin(rot) + 1.5f; // Elevación inicial en y
-
-        std::cout << "Sun Position: (" << lightPos.x << ", " << lightPos.y << ", " << lightPos.z << ")" << std::endl;
-        }
+        //std::cout << "Sun Position: (" << lightPos.x << ", " << lightPos.y << ", " << lightPos.z << ")" << std::endl;
+        
     }
 
 
