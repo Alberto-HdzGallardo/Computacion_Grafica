@@ -1,10 +1,3 @@
-/*
-Previo 9: Fuentes de luz
-Fecha de entrega: 01 de abril del 2025
-Nombre: Hernandez Gallardo Alberto Javier
-No. cuenta: 313113439
-*/
-
 #include <iostream>
 #include <cmath>
 
