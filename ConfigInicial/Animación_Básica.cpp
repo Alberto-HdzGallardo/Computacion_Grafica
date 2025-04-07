@@ -395,12 +395,12 @@ void DoMovement()
 
 	if (keys[GLFW_KEY_Y])
 	{
-		pointLightPositions[0].y += 0.01f;
+		pointLightPositions[0].y += 0.001f;
 	}
 
 	if (keys[GLFW_KEY_H])
 	{
-		pointLightPositions[0].y -= 0.01f;
+		pointLightPositions[0].y -= 0.001f;
 	}
 	if (keys[GLFW_KEY_U])
 	{
@@ -474,7 +474,7 @@ void Animation() {
 			}
 			else {
 				transBall = 0.0f; // Asegura que quede exacto
-				arriba = true;   // Opcional: Por si queremos que vuelva a subir en loop
+				arriba = true;   // Si queremos que se detenga al llegar abajo comentamos esta linea
 			}
 		}
 		
