@@ -37,7 +37,7 @@ void MouseCallback(GLFWwindow *window, double xPos, double yPos);
 void DoMovement();
 
 // Window dimensions
-const GLuint WIDTH = 800, HEIGHT = 600;
+const GLuint WIDTH = 1000, HEIGHT = 800;
 int SCREEN_WIDTH, SCREEN_HEIGHT;
 
 // Camera
@@ -55,7 +55,7 @@ float movelightPos = 0.0f;
 glm::vec3 pointLightPositions[] = {
 	glm::vec3(0.0f,0.0f, -10.0f),
 	glm::vec3(0.0f,0.0f, -10.0f),
-	glm::vec3(0.0f,0.0f, -10.0f),
+	glm::vec3(0.0f,0.0f, 0.0f),
 	glm::vec3(0.0f,0.0f, -10.0f)
 };
 
@@ -174,8 +174,8 @@ int main()
 	Model barrel((char*)"Models/Low Poly Farm Asset/barrel.obj");
 	Model barn((char*)"Models/Low Poly Farm Asset/barn.obj");
 	Model sol((char*)"Models/sol.obj");
-	Model luna((char*)"Models/luna/Moon 2K.obj");
-
+	Model luna((char*)"Models/luna/Moon.obj");
+	Model campfire((char*)"Models/Campfire/campfire3ds.obj");
 
 
 	// First, set the container's VAO (and VBO)
@@ -236,9 +236,9 @@ int main()
 
 		// Directional light
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.direction"), -0.2f, -1.0f, -0.3f); //Dirección de la luz, a donde apunta
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.ambient"),0.5f,0.5f,0.5f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.diffuse"), 0.8f, 0.8f, 0.8f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.specular"),1.0f, 1.0f, 1.0f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.ambient"),0.3f,0.3f,0.3f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.diffuse"), 0.5f, 0.5f, 0.5f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.specular"),0.8f, 0.8f, 0.8f);
 
 
 		// Point light 1
@@ -269,12 +269,12 @@ int main()
 
 		// Point light 3
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[2].position"), pointLightPositions[2].x, pointLightPositions[2].y, pointLightPositions[2].z);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[2].ambient"), 0.0f, 0.0f, 0.0f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[2].diffuse"), 0.0f, 0.0f, 0.0f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[2].specular"), 0.0f, 0.0f, 0.0f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[2].ambient"), 0.2f, 0.05f, 0.01f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[2].diffuse"), 0.9f, 0.4f, 0.1f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[2].specular"), 1.0f, 0.5f, 0.2f);
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[2].constant"), 1.0f);
-		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[2].linear"), 0.0f);
-		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[2].quadratic"), 0.0f);
+		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[2].linear"), 0.09f);
+		glUniform1f(glGetUniformLocation(lightingShader.Program, "pointLights[2].quadratic"), 0.032f);
 
 		// Point light 4
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "pointLights[3].position"), pointLightPositions[3].x, pointLightPositions[3].y, pointLightPositions[3].z);
@@ -488,8 +488,6 @@ int main()
 		//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		//Piso.Draw(lightingShader);
 
-
-	
 		model = glm::mat4(1);
 		glEnable(GL_BLEND);//Activa la funcionalidad para trabajar el canal alfa
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -498,6 +496,20 @@ int main()
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 1);
 	    Dog.Draw(lightingShader);
 		glDisable(GL_BLEND);  //Desactiva el canal alfa 
+
+		//Fogata
+		model = glm::translate(model, glm::vec3(5.0f, -0.4f, 10.0f));
+		model = glm::scale(model, glm::vec3(0.1f));
+		glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		campfire.Draw(lightingShader);
+
+		//Barril 2
+		barril = glm::translate(barril, glm::vec3(-1.5f, 0.05f, -1.0f));
+		glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(barril));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		barrel.Draw(lightingShader);
+
 		glBindVertexArray(0);
 	
 
@@ -511,12 +523,13 @@ int main()
 		// Set matrices
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-		model = glm::mat4(1);
-		model = glm::translate(model, lightPos);
-		model = glm::scale(model, glm::vec3(0.2f)); // Make it a smaller cube
+		//Fuente de luz correspondiente a la fogata
+		pointLightPositions[2] = glm::vec3(model[3][0], model[3][1], model[3][2]);
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		campfire.Draw(lampShader);
+		
 		// Draw the light object (using light's vertex attributes)
-		for (GLuint i = 0; i < 4; i++)
+		/*for (GLuint i = 0; i < 4; i++)
 		{
 			model = glm::mat4(1);
 			model = glm::translate(model, pointLightPositions[i]);
@@ -527,16 +540,19 @@ int main()
 			if (i == 1) {
 				
 			}
-		}
+		}*/
 
-		model = glm::mat4(1.0f);
+		
 		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+		model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0.0f, 7.0f, 0.0f));
 		model = glm::translate(model, lightPos + movelightPos);
 		model = glm::scale(model, glm::vec3(0.3f));
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		glBindVertexArray(VAO);
 		luna.Draw(lampShader);
+		
 
 		glBindVertexArray(0);
 
@@ -590,13 +606,13 @@ void DoMovement()
 	if (keys[GLFW_KEY_T])
 	{
 		pointLightPositions[0].x += 0.01f;
-		movelightPos += 0.01f;
+		movelightPos += 0.001f;
 		lightPos.x = lightPos.x + movelightPos;
 	}
 	if (keys[GLFW_KEY_G])
 	{
 		pointLightPositions[0].x -= 0.01f;
-		movelightPos -= 0.01f;
+		movelightPos -= 0.001f;
 		lightPos.x = lightPos.x - movelightPos;
 	}
 
