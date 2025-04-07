@@ -41,7 +41,7 @@ const GLuint WIDTH = 1000, HEIGHT = 800;
 int SCREEN_WIDTH, SCREEN_HEIGHT;
 
 // Camera
-Camera  camera(glm::vec3(0.0f, 0.0f, 3.0f));
+Camera  camera(glm::vec3(0.0f, 2.0f, 3.0f));
 GLfloat lastX = WIDTH / 2.0;
 GLfloat lastY = HEIGHT / 2.0;
 bool keys[1024];
@@ -176,6 +176,7 @@ int main()
 	Model sol((char*)"Models/sol.obj");
 	Model luna((char*)"Models/luna/Moon.obj");
 	Model campfire((char*)"Models/Campfire/campfire3ds.obj");
+	Model lamp((char*)"Models/LampPost/lamp.obj");
 
 
 	// First, set the container's VAO (and VBO)
@@ -236,9 +237,9 @@ int main()
 
 		// Directional light
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.direction"), -0.2f, -1.0f, -0.3f); //Dirección de la luz, a donde apunta
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.ambient"),0.3f,0.3f,0.3f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.diffuse"), 0.5f, 0.5f, 0.5f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.specular"),0.8f, 0.8f, 0.8f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.ambient"),0.1f,0.1f,0.1f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.diffuse"), 0.3f, 0.3f, 0.3f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "dirLight.specular"),0.4f, 0.4f, 0.4f);
 
 
 		// Point light 1
@@ -288,15 +289,27 @@ int main()
 		// SpotLight (reflector)
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.position"), camera.GetPosition().x, camera.GetPosition().y, camera.GetPosition().z);// Donde está ubicada la luz
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.direction"), camera.GetFront().x, camera.GetFront().y, camera.GetFront().z);//Hacia donde apunta la luz
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.ambient"), 0.2f, 0.2f, 0.8f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.ambient"), 0.4f, 0.4f, 0.4f);
 		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.diffuse"), 0.6f, 0.6f, 0.6f);
-		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.specular"),0.0f, 0.0f, 0.0f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.specular"),1.0f, 1.0f, 1.0f);
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.constant"), 1.0f);
-		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.linear"), 0.3f);
-		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.quadratic"), 0.7f);
-		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.cutOff"), glm::cos(glm::radians(12.0f)));//Angulo de apertura interno
-		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.outerCutOff"), glm::cos(glm::radians(18.0f))); //Angulo de apertura externo
+		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.linear"), 0.5f);
+		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.quadratic"), 0.9f);
+		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.cutOff"), glm::cos(glm::radians(24.0f)));//Angulo de apertura interno
+		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.outerCutOff"), glm::cos(glm::radians(36.0f))); //Angulo de apertura externo
 
+		// SpotLight properties (poste de luz)
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.position"), -25.1f, 8.0f, -5.3f);// Donde está ubicada la luz
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.direction"), 0.0f, -1.0f, 0.0f);//Hacia donde apunta la luz
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.ambient"), 0.2f, 0.2f, 0.25f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.diffuse"), 0.9f, 0.95f, 1.0f);
+		glUniform3f(glGetUniformLocation(lightingShader.Program, "spotLight.specular"), 1.0f, 1.0f, 1.0f);
+		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.constant"), 1.0f);
+		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.linear"), 0.09f);
+		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.quadratic"), 0.032f);
+		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.cutOff"), glm::cos(glm::radians(5.0f)));//Angulo de apertura interno
+		glUniform1f(glGetUniformLocation(lightingShader.Program, "spotLight.outerCutOff"), glm::cos(glm::radians(15.0f))); //Angulo de apertura externo
+		
 		// Set material properties
 		glUniform1f(glGetUniformLocation(lightingShader.Program, "material.shininess"), 16.0f);
 
@@ -454,6 +467,14 @@ int main()
 		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
 		stone_path_lowpoly.Draw(lightingShader);
 
+		//Poste de luz
+		camino = glm::translate(camino, glm::vec3(2.0f, 0.0f, 0.0f));
+		camino = glm::scale(camino, glm::vec3(0.015f));
+		camino = glm::rotate(camino, glm::radians(-90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(camino));
+		glUniform1i(glGetUniformLocation(lightingShader.Program, "transparency"), 0);
+		lamp.Draw(lightingShader);
+
 		//Barril 1
 		barril = glm::translate(barril, glm::vec3(1.5f, 0.05f, 1.0f));
 		glUniformMatrix4fv(glGetUniformLocation(lightingShader.Program, "model"), 1, GL_FALSE, glm::value_ptr(barril));
@@ -528,6 +549,8 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		campfire.Draw(lampShader);
 		
+
+
 		// Draw the light object (using light's vertex attributes)
 		/*for (GLuint i = 0; i < 4; i++)
 		{
@@ -541,18 +564,6 @@ int main()
 				
 			}
 		}*/
-
-		
-		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-		model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(0.0f, 7.0f, 0.0f));
-		model = glm::translate(model, lightPos + movelightPos);
-		model = glm::scale(model, glm::vec3(0.3f));
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glBindVertexArray(VAO);
-		luna.Draw(lampShader);
-		
 
 		glBindVertexArray(0);
 
@@ -606,14 +617,12 @@ void DoMovement()
 	if (keys[GLFW_KEY_T])
 	{
 		pointLightPositions[0].x += 0.01f;
-		movelightPos += 0.001f;
-		lightPos.x = lightPos.x + movelightPos;
+		
 	}
 	if (keys[GLFW_KEY_G])
 	{
 		pointLightPositions[0].x -= 0.01f;
-		movelightPos -= 0.001f;
-		lightPos.x = lightPos.x - movelightPos;
+		
 	}
 
 	if (keys[GLFW_KEY_Y])
@@ -662,6 +671,7 @@ void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mode
 		if (active)
 		{
 			Light1 = glm::vec3(1.0f, 1.0f, 0.0f);
+
 		}
 		else
 		{
